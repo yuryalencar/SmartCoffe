@@ -54,11 +54,15 @@ public class CupCompartment extends Compartment {
     @Override
     public boolean fill(String type, int amount) {
 
-        // TODO: check if amount grater than max cup value
+        // Check if amount is grater than max cup value
+        if(amount > this.getMaxAmount()) {
+            System.out.println("Quantidade de copos superior ao permitido em fill().");
+            return false;
+        }
 
         switch (type) {
             case "smallCup":
-                if(this.amountSmallCup >= amount) {
+                if(amount <= this.amountSmallCup) {
                     System.out.println("Quantidade de copos inferior ao esperado em fill().");
                     return false;
                 }
@@ -67,7 +71,7 @@ public class CupCompartment extends Compartment {
                 break;
 
             case "mediumCup":
-                if(this.amountMediumCup >= amount) {
+                if(amount <= this.amountMediumCup) {
                     System.out.println("Quantidade de copos inferior ao esperado em fill().");
                     return false;
                 }
@@ -76,7 +80,7 @@ public class CupCompartment extends Compartment {
                 break;
 
             case "bigCup":
-                if(this.amountBigCup >= amount) {
+                if(amount <= this.amountBigCup) {
                     System.out.println("Quantidade de copos inferior ao esperado em fill().");
                     return false;
                 }
