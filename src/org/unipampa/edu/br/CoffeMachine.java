@@ -41,12 +41,35 @@ public class CoffeMachine {
         coinsCompartment.fill("fiftyCents", 30);
         coinsCompartment.fill("oneBRL", 30);
 
-        // Refactored
         ingredientsCompartment.fill("water", 30000);
         ingredientsCompartment.fill("coffee", 3000);
         ingredientsCompartment.fill("milk", 15000);
         ingredientsCompartment.fill("cinnamon", 600);
         ingredientsCompartment.fill("chocolate", 15000);
         ingredientsCompartment.fill("sugar", 3600);
+    }
+
+    public Boolean takeCoins(String type, int amount){
+        return coinsCompartment.take(type, amount);
+    }
+
+    public Boolean fillCoins(String type, int amount){
+        return coinsCompartment.fill(type, amount);
+    }
+
+    public Boolean fillCups(String type, int amount){
+        return cupsCompartment.fill(type, amount);
+    }
+
+    public Boolean fillIngredients(String type, int amount){
+        return ingredientsCompartment.fill(type, amount);
+    }
+
+    public Integer getAmountCoins(String type) {
+        return coinsCompartment.verifyAmount(type);
+    }
+
+    public Integer getAmountIngredients(String type) {
+        return ingredientsCompartment.verifyAmount(type);
     }
 }
