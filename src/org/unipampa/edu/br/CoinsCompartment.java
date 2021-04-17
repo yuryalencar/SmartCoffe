@@ -139,7 +139,7 @@ public class CoinsCompartment extends Compartment {
                 break;
 
             default:
-                System.out.println("Tipo de moeda não reconhecido.");
+                System.out.println("Tipo de moeda não reconhecido em fill().");
                 return false;
         }
         return true;

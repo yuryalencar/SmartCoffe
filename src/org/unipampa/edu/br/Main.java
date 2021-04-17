@@ -34,15 +34,24 @@ public class Main {
         /* Compartimento de moedas */
         /*CoinsCompartment coins = new CoinsCompartment();
 
-        for(int i=0;i<33;i++) {
-            coins.take("oneBRL", 1);
-        }
+        coins.take("oneBRL", 30);
 
         coins.fill("oneBRL", 30);
 
         System.out.println("5 centavos: " + coins.verifyAmount("fiveCents"));
         System.out.println("50 centavos: " + coins.verifyAmount("fiftyCents"));
         System.out.println("1 real: " + coins.verifyAmount("oneBRL"));*/
+
+        /* Compartimento de ingredientes */
+        /*IngredientsCompartment ingr = new IngredientsCompartment();
+
+        ingr.take("water", 230);
+
+        //ingr.fill("water", 30000);
+
+        System.out.println("Water: " + ingr.verifyAmount("water"));
+        System.out.println("Coffee: " + ingr.verifyAmount("coffee"));
+        System.out.println("Sugar: " + ingr.verifyAmount("sugar"));*/
 
     }
 }

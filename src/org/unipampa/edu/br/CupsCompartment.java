@@ -89,7 +89,7 @@ public class CupsCompartment extends Compartment {
                 break;
 
             default:
-                System.out.println("Tipo de copo não reconhecido.");
+                System.out.println("Tipo de copo não reconhecido em fill().");
                 return false;
         }
         return true;
