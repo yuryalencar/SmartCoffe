@@ -1,14 +1,14 @@
 package org.unipampa.edu.br;
 
 public class Recipe {
-    private final int price;
-    private final int maxPrice;
-    private final int minPrice;
-    private final int water;
-    private final int coffee;
-    private final int milk;
-    private final int chocolate;
-    private final int cinnamon;
+    private int price;
+    private int maxPrice;
+    private int minPrice;
+    private int water;
+    private int coffee;
+    private int milk;
+    private int chocolate;
+    private int cinnamon;
 
     public Recipe(int price, int minPrice, int maxPrice, int water, int coffee, int milk, int chocolate, int cinnamon) {
         this.price = price;

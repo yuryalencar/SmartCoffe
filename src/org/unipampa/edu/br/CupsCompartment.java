@@ -2,12 +2,16 @@ package org.unipampa.edu.br;
 
 public class CupsCompartment extends Compartment {
 
-    private int amountSmallCup = 100;
-    private int amountMediumCup = 100;
-    private int amountBigCup = 100;
+    private int amountSmallCup;
+    private int amountMediumCup;
+    private int amountBigCup;
 
     public CupsCompartment() {
+        super(100, 0, 15);
 
+        this.amountBigCup = 0;
+        this.amountMediumCup = 0;
+        this.amountSmallCup = 0;
     }
 
     /**

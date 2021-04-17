@@ -9,7 +9,7 @@ public class CoinsCompartment extends Compartment {
     private int amountOneBRL = 30;
 
     public CoinsCompartment() {
-
+        super(100, 80, 15);
     }
 
     /**
