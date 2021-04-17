@@ -12,8 +12,12 @@ public class EmailCentral {
 
     private String technicianEmail;
 
-    public EmailCentral(){
+    public EmailCentral() {
         this.technicianEmail = "suportsmartcoffe@gmail.com";
+    }
+
+    public String getTechnicianEmail() {
+        return technicianEmail;
     }
 
     public boolean sendEmail(String content) throws MessagingException {
@@ -24,7 +28,7 @@ public class EmailCentral {
 
         msg.setFrom(new InternetAddress(technicianEmail));
         //verificar se precisa cadastrar um funcionario de suporte, ja que vai precisar de login e senha
-        Address [] toUser = InternetAddress.parse("jonaschagas10@gmail.com");
+        Address[] toUser = InternetAddress.parse("jonaschagas10@gmail.com");
         msg.setRecipients(Message.RecipientType.TO, toUser);
         //verificar o formato que vai ser a msg
         msg.setSubject("Assunto");
@@ -34,7 +38,7 @@ public class EmailCentral {
         return true;
     }
 
-    private Session getSession(){
+    private Session getSession() {
 
         //Configura as propriedades para envio do e-mail
         Properties properties = new Properties();
@@ -54,7 +58,7 @@ public class EmailCentral {
         return session;
     }
 
-    private String getTemplate(String content){
+    private String getTemplate(String content) {
 
         StringBuilder html = new StringBuilder();
 

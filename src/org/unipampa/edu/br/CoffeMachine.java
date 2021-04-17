@@ -7,12 +7,14 @@ public class CoffeMachine {
     private Compartment cupsCompartment;
     private Compartment coinsCompartment;
     private Compartment ingredientsCompartment;
+    private EmailCentral emailCentral;
 
     public CoffeMachine() {
         recipes = new ArrayList();
         cupsCompartment = new CupsCompartment();
         coinsCompartment = new CoinsCompartment();
         ingredientsCompartment = new IngredientsCompartment();
+        this.emailCentral = new EmailCentral();
 
         this.loadRecipes();
         this.loadCompartments();
@@ -47,6 +49,10 @@ public class CoffeMachine {
         ingredientsCompartment.fill("cinnamon", 600);
         ingredientsCompartment.fill("chocolate", 15000);
         ingredientsCompartment.fill("sugar", 3600);
+    }
+
+    public Boolean auth(String email) {
+        return email.equals(this.emailCentral.getTechnicianEmail());
     }
 
     public Boolean takeCoins(String type, int amount){
