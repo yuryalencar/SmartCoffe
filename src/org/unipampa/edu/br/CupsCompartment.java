@@ -2,18 +2,18 @@ package org.unipampa.edu.br;
 
 import org.jetbrains.annotations.NotNull;
 
-public class CupCompartment extends Compartment {
+public class CupsCompartment extends Compartment {
 
     private int amountSmallCup = 100;
     private int amountMediumCup = 100;
     private int amountBigCup = 100;
 
-    public CupCompartment() {
+    public CupsCompartment() {
 
     }
 
     /**
-     * Takes 1 cup of a given type from the cup compartment.
+     * Takes 1 cup of a given type from the cups compartment.
      *
      * @param  type   one of three types of cup: smallCup, mediumCup or bigCup
      * @param  amount the amount of cups taken, default 1 for cups
@@ -45,7 +45,7 @@ public class CupCompartment extends Compartment {
     }
 
     /**
-     * Fills the cup compartment of a given cup type.
+     * Fills the cups compartment of a given cup type.
      *
      * @param  type   one of three types of cup: smallCup, mediumCup or bigCup
      * @param  amount the total amount of cups after filled

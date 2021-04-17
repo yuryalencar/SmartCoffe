@@ -19,7 +19,7 @@ public class Main {
         }*/
 
         /* Compartimento de copos */
-        /*CupCompartment cups = new CupCompartment();
+        /*CupsCompartment cups = new CupsCompartment();
 
         for(int i=0;i<30;i++) {
             cups.take("smallCup", 1);
