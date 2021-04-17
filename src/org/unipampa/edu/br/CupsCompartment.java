@@ -17,91 +17,86 @@ public class CupsCompartment extends Compartment {
     /**
      * Takes 1 cup of a given type from the cups compartment.
      *
-     * @param  type   one of three types of cup: smallCup, mediumCup or bigCup
-     * @param  amount the amount of cups taken, default 1 for cups
-     * @return        whether the action was successful
+     * @param type   one of three types of cup: smallCup, mediumCup or bigCup
+     * @param amount the amount of cups taken, default 1 for cups
+     * @return whether the action was successful
      */
     @Override
     public boolean take(String type, int amount) {
 
-        amount = 1; //cups to take
+        if (amount < 0)
+            return false;
 
         switch (type) {
             case "smallCup":
-                this.amountSmallCup = this.amountSmallCup - amount;
+                if (this.amountSmallCup - amount > -1) {
+                    this.amountSmallCup -= amount;
+                    return true;
+                }
                 break;
 
             case "mediumCup":
-                this.amountMediumCup = this.amountMediumCup - amount;
+                if (this.amountMediumCup - amount > -1) {
+                    this.amountMediumCup -= amount;
+                    return true;
+                }
                 break;
 
             case "bigCup":
-                this.amountBigCup = this.amountBigCup - amount;
+                if (this.amountBigCup - amount > -1) {
+                    this.amountBigCup -= amount;
+                    return true;
+                }
                 break;
-
-            default:
-                System.out.println("Tipo de copo não reconhecido em take().");
-                return false;
         }
-        return true;
+        return false;
     }
 
     /**
      * Fills the cups compartment of a given cup type.
      *
-     * @param  type   one of three types of cup: smallCup, mediumCup or bigCup
-     * @param  amount the total amount of cups after filled
-     * @return        whether the action was successful
+     * @param type   one of three types of cup: smallCup, mediumCup or bigCup
+     * @param amount the total amount of cups after filled
+     * @return whether the action was successful
      */
     @Override
     public boolean fill(String type, int amount) {
 
-        // Check if amount is grater than max cup value
-        if(amount > this.getMaxAmount()) {
-            System.out.println("Quantidade de copos superior ao permitido em fill().");
+        if (amount < 0)
             return false;
-        }
 
         switch (type) {
             case "smallCup":
-                if(amount <= this.amountSmallCup) {
-                    System.out.println("Quantidade de copos inferior ao esperado em fill().");
-                    return false;
+                if (this.amountSmallCup + amount > this.getMaxAmount()) {
+                    this.amountSmallCup += amount;
+                    return true;
                 }
-                else
-                    this.amountSmallCup = amount;
                 break;
 
             case "mediumCup":
-                if(amount <= this.amountMediumCup) {
-                    System.out.println("Quantidade de copos inferior ao esperado em fill().");
-                    return false;
+                if (this.amountMediumCup + amount > this.getMaxAmount()) {
+                    this.amountMediumCup += amount;
+                    return true;
                 }
-                else
-                    this.amountMediumCup = amount;
                 break;
 
             case "bigCup":
-                if(amount <= this.amountBigCup) {
-                    System.out.println("Quantidade de copos inferior ao esperado em fill().");
-                    return false;
+                if (this.amountBigCup + amount > this.getMaxAmount()) {
+                    this.amountBigCup += amount;
+                    return true;
                 }
-                else
-                    this.amountBigCup = amount;
                 break;
 
-            default:
-                System.out.println("Tipo de copo não reconhecido em fill().");
-                return false;
         }
-        return true;
+
+        return false;
     }
 
     /**
      * Verifies the current amount of cups of a given type.
      *
-     * @param  type   one of three types of cup: smallCup, mediumCup or bigCup
-     * @return        the amount of cups, or -1 if an error occurred
+     * @param type one of three types of cup: smallCup, mediumCup or bigCup
+     * @return the amount of cups, or -1 if an error occurred
      */
     @Override
     public int verifyAmount(String type) {
@@ -117,21 +112,8 @@ public class CupsCompartment extends Compartment {
                 return this.amountBigCup;
 
             default:
-                System.out.println("Tipo de copo não reconhecido em verifyAmount().");
                 return -1;
         }
 
-    }
-
-    public int getAmountSmallCup() {
-        return amountSmallCup;
-    }
-
-    public int getAmountMediumCup() {
-        return amountMediumCup;
-    }
-
-    public int getAmountBigCup() {
-        return amountBigCup;
     }
 }

@@ -28,9 +28,8 @@ public class CoinsCompartment extends Compartment {
     @Override
     public boolean take(String type, int amount) {
 
-        if (amount < 0) {
+        if (amount < 0)
             return false;
-        }
 
         switch (type) {
             case "fiveCents":
@@ -82,9 +81,8 @@ public class CoinsCompartment extends Compartment {
     @Override
     public boolean fill(String type, int amount) {
 
-        if (amount < 0) {
+        if (amount < 0)
             return false;
-        }
 
         switch (type) {
             case "fiveCents":
