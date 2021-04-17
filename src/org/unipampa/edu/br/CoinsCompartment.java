@@ -42,14 +42,14 @@ public class CoinsCompartment extends Compartment {
             case "tenCents":
                 if (this.amountTenCents - amount >= 0) {
                     this.amountTenCents -= amount;
-                    return false;
+                    return true;
                 }
                 break;
 
             case "twentyFiveCents":
                 if (this.amountTwentyFiveCents - amount >= 0) {
                     this.amountTwentyFiveCents -= amount;
-                    return false;
+                    return true;
                 }
                 break;
 

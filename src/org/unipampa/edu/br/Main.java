@@ -10,16 +10,17 @@ public class Main {
         System.out.println("SmartCoffee - An intelligent coffee machine");
 
         // Coffe Machine
-        CoffeMachine machine = new CoffeMachine();
+        CoffeeMachine machine = new CoffeeMachine();
 
         ArrayList<Integer> coins= new ArrayList();
-        coins.add(5);
+        coins.add(10);
         coins.add(10);
         coins.add(25);
         coins.add(50);
+        coins.add(50);
         coins.add(100);
 
-        System.out.println(machine.pay(coins, 1));
+        System.out.println(machine.pay(coins, 2));
 
         /* Teste de e-mail */
         /*EmailCentral email = new EmailCentral();
