@@ -1,6 +1,8 @@
 package org.unipampa.edu.br;
 
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args)  {
@@ -9,6 +11,15 @@ public class Main {
 
         // Coffe Machine
         CoffeMachine machine = new CoffeMachine();
+
+        ArrayList<Integer> coins= new ArrayList();
+        coins.add(5);
+        coins.add(10);
+        coins.add(25);
+        coins.add(50);
+        coins.add(100);
+
+        System.out.println(machine.pay(coins, 1));
 
         /* Teste de e-mail */
         /*EmailCentral email = new EmailCentral();

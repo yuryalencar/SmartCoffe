@@ -21,10 +21,10 @@ public class CoffeMachine {
     }
 
     private void loadRecipes() {
-        Recipe expressCoffee = new Recipe(200, 75, 535, 100, 10,0,0,0);
-        Recipe cappuccino = new Recipe(530, 310, 935, 100, 10,50,10,2);
-        Recipe coffeeWithMilk = new Recipe(530, 310, 935, 75, 10,50,0,0);
-        Recipe hotChocolate = new Recipe(600, 400, 910, 75, 0,50,50,0);
+        Recipe expressCoffee = new Recipe(200, 75, 535, 100, 10, 0, 0, 0);
+        Recipe cappuccino = new Recipe(530, 310, 935, 100, 10, 50, 10, 2);
+        Recipe coffeeWithMilk = new Recipe(530, 310, 935, 75, 10, 50, 0, 0);
+        Recipe hotChocolate = new Recipe(600, 400, 910, 75, 0, 50, 50, 0);
 
         recipes.add(expressCoffee);
         recipes.add(cappuccino);
@@ -32,7 +32,7 @@ public class CoffeMachine {
         recipes.add(hotChocolate);
     }
 
-    private void loadCompartments(){
+    private void loadCompartments() {
         cupsCompartment.fill("smallCup", 100);
         cupsCompartment.fill("mediumCup", 100);
         cupsCompartment.fill("bigCup", 100);
@@ -55,19 +55,19 @@ public class CoffeMachine {
         return email.equals(this.emailCentral.getTechnicianEmail());
     }
 
-    public Boolean takeCoins(String type, int amount){
+    public Boolean takeCoins(String type, int amount) {
         return coinsCompartment.take(type, amount);
     }
 
-    public Boolean fillCoins(String type, int amount){
+    public Boolean fillCoins(String type, int amount) {
         return coinsCompartment.fill(type, amount);
     }
 
-    public Boolean fillCups(String type, int amount){
+    public Boolean fillCups(String type, int amount) {
         return cupsCompartment.fill(type, amount);
     }
 
-    public Boolean fillIngredients(String type, int amount){
+    public Boolean fillIngredients(String type, int amount) {
         return ingredientsCompartment.fill(type, amount);
     }
 
@@ -77,5 +77,51 @@ public class CoffeMachine {
 
     public Integer getAmountIngredients(String type) {
         return ingredientsCompartment.verifyAmount(type);
+    }
+
+    public ArrayList<Integer> pay(ArrayList<Integer> coins, double price) {
+        if(!this.canPay(coins, price))
+            return coins;
+
+        int change = this.getSumCoins(coins) - this.formatPrice(price);
+
+        // doing..
+        return new ArrayList<Integer>();
+    }
+
+    private Boolean canPay(ArrayList<Integer> coins, double price) {
+        if(!this.validateCoins(coins) || !this.validatePrice(price))
+            return false;
+
+        int change = this.getSumCoins(coins) - this.formatPrice(price);
+        return change > 0;
+    }
+
+    private Integer getSumCoins(ArrayList<Integer> coins) {
+        int sumCoins = 0;
+        for (int coin : coins) {
+            sumCoins += coin;
+        }
+        return sumCoins;
+    }
+
+    private Integer formatPrice(double price) {
+        return (int) (price * 100);
+    }
+
+    private Boolean validatePrice(double price) {
+        int formatedPrice = this.formatPrice(price);
+        return formatedPrice % 5 == 0;
+    }
+
+    private Boolean validateCoins(ArrayList<Integer> coins) {
+        boolean valid = true;
+        for (int coin : coins) {
+            if (coin != 5 && coin != 10 && coin != 25 && coin != 50 && coin != 100) {
+                valid = false;
+                break;
+            }
+        }
+        return valid;
     }
 }
