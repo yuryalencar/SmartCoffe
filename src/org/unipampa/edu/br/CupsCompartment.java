@@ -1,7 +1,5 @@
 package org.unipampa.edu.br;
 
-import org.jetbrains.annotations.NotNull;
-
 public class CupsCompartment extends Compartment {
 
     private int amountSmallCup = 100;

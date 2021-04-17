@@ -1,12 +1,17 @@
 package org.unipampa.edu.br;
 
-import javax.mail.MessagingException;
 
 public class Main {
 
     public static void main(String[] args)  {
 
         System.out.println("SmartCoffee - An intelligent coffee machine");
+
+        // Recipes
+        Recipe expressCoffee = new Recipe(200, 75, 535, 100, 10,0,0,0);
+        Recipe cappuccino = new Recipe(530, 310, 935, 100, 10,50,10,2);
+        Recipe coffeeWithMilk = new Recipe(530, 310, 935, 75, 10,50,0,0);
+        Recipe hotChocolate = new Recipe(600, 400, 910, 75, 0,50,50,0);
 
         /* Teste de e-mail */
         /*EmailCentral email = new EmailCentral();
