@@ -32,7 +32,10 @@ public class Main extends Application {
         System.out.println("SmartCoffee - An intelligent coffee machine");
 
         // Drink Machine Sample :)
-        // DrinkMachine machine = new DrinkMachine();
+         DrinkMachine machine = new DrinkMachine();
+
+         System.out.println(machine.makeRecipeByType("cappuccino", 3, 2));
+
         //
         // ArrayList<Integer> coins= new ArrayList();
         // coins.add(10);

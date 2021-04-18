@@ -33,75 +33,135 @@ public class Recipe {
         return this.minPrice;
     }
 
-    public double getBigMilk() {
+    public int getBigMilk() {
         return this.getBig(this.milk);
     }
 
-    public double getMediumMilk() {
+    public int getMediumMilk() {
         return this.getMedium(this.milk);
     }
 
-    public double getSmallMilk() {
+    public int getSmallMilk() {
         return this.getSmall(this.milk);
     }
 
-    public double getBigCinnamon() {
+    public int getBigCinnamon() {
         return this.getBig(this.cinnamon);
     }
 
-    public double getMediumCinnamon() {
+    public int getMediumCinnamon() {
         return this.getMedium(this.cinnamon);
     }
 
-    public double getSmallCinnamon() {
+    public int getSmallCinnamon() {
         return this.getSmall(this.cinnamon);
     }
 
-    public double getBigCoffee() {
+    public int getBigCoffee() {
         return this.getBig(this.coffee);
     }
 
-    public double getMediumCoffee() {
+    public int getMediumCoffee() {
         return this.getMedium(this.coffee);
     }
 
-    public double getSmallCoffee() {
+    public int getSmallCoffee() {
         return this.getSmall(this.coffee);
     }
 
-    public double getBigWater() {
+    public int getBigWater() {
         return this.getBig(this.water);
     }
 
-    public double getMediumWater() {
+    public int getMediumWater() {
         return this.getMedium(this.water);
     }
 
-    public double getSmallWater() {
+    public int getSmallWater() {
         return this.getSmall(this.water);
     }
 
-    public double getBigChocolate() {
+    public int getBigChocolate() {
         return this.getBig(this.chocolate);
     }
 
-    public double getMediumChocolate() {
+    public int getMediumChocolate() {
         return this.getMedium(this.chocolate);
     }
 
-    public double getSmallChocolate() {
+    public int getSmallChocolate() {
         return this.getSmall(this.chocolate);
     }
 
-    private double getBig(int ingredient) {
-        return ingredient * 2;
+    public int getWater(int size) {
+        switch (size){
+            case 1:
+                return this.getSmall(this.water);
+            case 2:
+                return this.getMedium(this.water);
+            case 3:
+                return this.getBig(this.water);
+        }
+        return 0;
     }
 
-    private double getMedium(int ingredient) {
-        return ingredient;
+    public int getCoffee(int size) {
+        switch (size){
+            case 1:
+                return this.getSmall(this.coffee);
+            case 2:
+                return this.getMedium(this.coffee);
+            case 3:
+                return this.getBig(this.coffee);
+        }
+        return 0;
     }
 
-    private double getSmall(int ingredient) {
-        return ingredient / 2.0;
+    public int getMilk(int size) {
+        switch (size){
+            case 1:
+                return this.getSmall(this.milk);
+            case 2:
+                return this.getMedium(this.milk);
+            case 3:
+                return this.getBig(this.milk);
+        }
+        return 0;
+    }
+
+    public int getChocolate(int size) {
+        switch (size){
+            case 1:
+                return this.getSmall(this.chocolate);
+            case 2:
+                return this.getMedium(this.chocolate);
+            case 3:
+                return this.getBig(this.chocolate);
+        }
+        return 0;
+    }
+
+    public int getCinnamon(int size) {
+        switch (size){
+            case 1:
+                return this.getSmall(this.cinnamon);
+            case 2:
+                return this.getMedium(this.cinnamon);
+            case 3:
+                return this.getBig(this.cinnamon);
+        }
+        return 0;
+    }
+
+    private int getBig(int ingredient) {
+        return (int) (ingredient * 2);
+    }
+
+    private int getMedium(int ingredient) {
+        return (int) ingredient;
+    }
+
+    private int getSmall(int ingredient) {
+        return (int) (ingredient / 2);
     }
 }

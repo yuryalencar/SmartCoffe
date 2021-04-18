@@ -21,44 +21,6 @@ public class DrinkMachine {
     }
 
     /**
-     * Method to register coffee machine recipes
-     */
-    private void loadRecipes() {
-        Recipe expressCoffee = new Recipe(200, 75, 535, 100, 10, 0, 0, 0);
-        Recipe cappuccino = new Recipe(530, 310, 935, 100, 10, 50, 10, 2);
-        Recipe coffeeWithMilk = new Recipe(530, 310, 935, 75, 10, 50, 0, 0);
-        Recipe hotChocolate = new Recipe(600, 400, 910, 75, 0, 50, 50, 0);
-
-        recipes.add(expressCoffee);
-        recipes.add(cappuccino);
-        recipes.add(coffeeWithMilk);
-        recipes.add(hotChocolate);
-    }
-
-    /**
-     * Method to load compartments in
-     * coffee machine create.
-     */
-    private void loadCompartments() {
-        cupsCompartment.fill("smallCup", 100);
-        cupsCompartment.fill("mediumCup", 100);
-        cupsCompartment.fill("bigCup", 100);
-
-        coinsCompartment.fill("fiveCents", 0);
-        coinsCompartment.fill("tenCents", 0);
-        coinsCompartment.fill("twentyFiveCents", 0);
-        coinsCompartment.fill("fiftyCents", 0);
-        coinsCompartment.fill("oneBRL", 2);
-
-        ingredientsCompartment.fill("water", 30000);
-        ingredientsCompartment.fill("coffee", 3000);
-        ingredientsCompartment.fill("milk", 15000);
-        ingredientsCompartment.fill("cinnamon", 600);
-        ingredientsCompartment.fill("chocolate", 15000);
-        ingredientsCompartment.fill("sugar", 3600);
-    }
-
-    /**
      * Method to auth in coffee machine
      *
      * @param email present in email central
@@ -130,6 +92,171 @@ public class DrinkMachine {
      */
     public Integer getAmountIngredients(String type) {
         return ingredientsCompartment.verifyAmount(type);
+    }
+
+    /**
+     * Method to make an recipe by your respective type
+     *
+     * @param type key of the recipe mapped
+     * @param recipeSize size of recipe to make, 1 to P, 2 to M, 3 to G
+     * @param sugarSize size of sugar 1 to P, 2 to M, 3 to G and any other size to S
+     * @return true if make recipe, and false if not.
+     */
+    public Boolean makeRecipeByType(String type, int recipeSize, int sugarSize) {
+        Recipe recipe = this.getRecipeByKey(type);
+        if(!this.canMakeRecipe(recipe, recipeSize, sugarSize))
+            return false;
+
+        ingredientsCompartment.take("water", recipe.getWater(recipeSize));
+        ingredientsCompartment.take("coffee", recipe.getCoffee(recipeSize));
+        ingredientsCompartment.take("milk", recipe.getMilk(recipeSize));
+        ingredientsCompartment.take("cinnamon", recipe.getCinnamon(recipeSize));
+        ingredientsCompartment.take("chocolate", recipe.getChocolate(recipeSize));
+        ingredientsCompartment.take("sugar", this.getSugarBySize(sugarSize));
+
+        return true;
+    }
+
+    /**
+     * Method to verify if machine can make the recipe
+     *
+     * @param recipe recipe to make
+     * @param recipeSize recipe size using 1 to small, 2 to medium and 3 to big
+     * @param sugarSize 1 to P, 2 to M, 3 to G, and any other value to S
+     * @return true if can make this recipe and false if not
+     */
+    public Boolean canMakeRecipe(Recipe recipe, int recipeSize, int sugarSize) {
+        boolean canMake = false;
+        boolean hasSugar = ingredientsCompartment.verifyAmount("sugar") - getSugarBySize(sugarSize) > -1;
+
+        if(recipeSize == 1)
+            canMake = verifySmallRecipe(recipe);
+
+        if(recipeSize == 2)
+            canMake = verifyMediumRecipe(recipe);
+
+        if(recipeSize == 3)
+            canMake = verifyBigRecipe(recipe);
+
+        return canMake && hasSugar;
+    }
+
+    /**
+     * Method to get recipe by specific key
+     *
+     * @param key keyword to get recipe
+     * @return recipe if keyword is mapped or null if not
+     */
+    public Recipe getRecipeByKey(String key) {
+        switch (key){
+            case "expressCoffee":
+                return new Recipe(200, 75, 535, 100, 10, 0, 0, 0);
+            case "cappuccino":
+                return new Recipe(530, 310, 935, 100, 10, 50, 10, 2);
+            case "coffeeWithMilk":
+                return new Recipe(530, 310, 935, 75, 10, 50, 0, 0);
+            case "hotChocolate":
+                return new Recipe(600, 400, 910, 75, 0, 50, 50, 0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Method to verify ingredients to recipes
+     *
+     * @param amountWater amount water in recipe
+     * @param amountCoffee amount coffee in recipe
+     * @param amountMilk amount milk in recipe
+     * @param amountCinnamon amount cinnamon in recipe
+     * @param amountChocolate amount chocolate in recipe
+     * @param amountRecipes amount recipes is used in validation
+     * @return true if has ingredients in compartment and false if not
+     */
+    private Boolean verifyRecipe(int amountWater, int amountCoffee, int amountMilk, int amountCinnamon, int amountChocolate, int amountRecipes){
+        if(ingredientsCompartment.verifyAmount("water") - (amountWater * amountRecipes) < 0)
+            return false;
+
+        if(ingredientsCompartment.verifyAmount("coffee") - (amountCoffee * amountRecipes) < 0)
+            return false;
+
+        if(ingredientsCompartment.verifyAmount("milk") - (amountMilk * amountRecipes) < 0)
+            return false;
+
+        if(ingredientsCompartment.verifyAmount("cinnamon") - (amountCinnamon * amountRecipes) < 0)
+            return false;
+
+        if(ingredientsCompartment.verifyAmount("chocolate") - (amountChocolate * amountRecipes) < 0)
+            return false;
+
+        return true;
+    }
+
+    /**
+     * Method to verify an small recipe
+     *
+     * @param recipe recipe to verify if machine can make
+     * @return true if can make, false if not
+     */
+    private Boolean verifySmallRecipe(Recipe recipe) {
+        int amountWater = recipe.getSmallWater();
+        int amountCoffee = recipe.getSmallCoffee();
+        int amountMilk = recipe.getSmallMilk();
+        int amountCinnamon = recipe.getSmallCinnamon();
+        int amountChocolate = recipe.getSmallChocolate();
+
+        return verifyRecipe(amountWater, amountCoffee, amountMilk, amountCinnamon, amountChocolate, 1);
+    }
+
+    /**
+     * Method to verify an medium recipe
+     *
+     * @param recipe recipe to verify if machine can make
+     * @return true if can make, false if not
+     */
+    private Boolean verifyMediumRecipe(Recipe recipe) {
+        int amountWater = recipe.getMediumWater();
+        int amountCoffee = recipe.getMediumCoffee();
+        int amountMilk = recipe.getMediumMilk();
+        int amountCinnamon = recipe.getMediumCinnamon();
+        int amountChocolate = recipe.getMediumChocolate();
+
+        return verifyRecipe(amountWater, amountCoffee, amountMilk, amountCinnamon, amountChocolate, 1);
+    }
+
+    /**
+     * Method to verify an big recipe
+     *
+     * @param recipe recipe to verify if machine can make
+     * @return true if can make, false if not
+     */
+    private Boolean verifyBigRecipe(Recipe recipe) {
+        int amountWater = recipe.getBigWater();
+        int amountCoffee = recipe.getBigCoffee();
+        int amountMilk = recipe.getBigMilk();
+        int amountCinnamon = recipe.getBigCinnamon();
+        int amountChocolate = recipe.getBigChocolate();
+
+        return verifyRecipe(amountWater, amountCoffee, amountMilk, amountCinnamon, amountChocolate, 1);
+    }
+
+    /**
+     * Get amount sugar by size
+     *
+     * @param size 1 to P, 2 to M, 3 to G, and any other value to S
+     * @return return amount sugar in GR.
+     */
+    private Integer getSugarBySize(int size) {
+        switch (size){
+            case 1:
+                return 5;
+            case 2:
+                return 8;
+            case 3:
+                return 12;
+        }
+
+        return 0;
     }
 
     /**
@@ -229,18 +356,6 @@ public class DrinkMachine {
         }
 
         return changeCoins;
-    }
-
-    /**
-     * Method to made an rollback if in change coin process we
-     * not found more coins.
-     *
-     * @param coins to insert again in coins compartment
-     */
-    private void rollbackCoins(ArrayList<Integer> coins) {
-        for (int coin : coins) {
-            coinsCompartment.fill(this.getTypeByValue(coin), 1);
-        }
     }
 
     /**
@@ -349,19 +464,6 @@ public class DrinkMachine {
         return amountMoney >= changeMoney;
     }
 
-    /**
-     * Method to sum coins value
-     *
-     * @param coins array with coins
-     * @return return coins sum
-     */
-    private Integer getSumCoins(ArrayList<Integer> coins) {
-        int sumCoins = 0;
-        for (int coin : coins) {
-            sumCoins += coin;
-        }
-        return sumCoins;
-    }
 
     /**
      * Method to format BRL price to BRL cent price
@@ -371,17 +473,6 @@ public class DrinkMachine {
      */
     public Integer formatPrice(double price) {
         return (int) (price * 100);
-    }
-
-    /**
-     * Method to validate amount price
-     *
-     * @param price BRL amount price
-     * @return true if is an valid price and false if not
-     */
-    private Boolean validatePrice(double price) {
-        int formattedPrice = this.formatPrice(price);
-        return formattedPrice % 5 == 0;
     }
 
     /**
@@ -421,5 +512,82 @@ public class DrinkMachine {
                 return "oneBRL";
         }
         return null;
+    }
+
+    /**
+     * Method to register coffee machine recipes
+     */
+    private void loadRecipes() {
+        Recipe expressCoffee = new Recipe(200, 75, 535, 100, 10, 0, 0, 0);
+        Recipe cappuccino = new Recipe(530, 310, 935, 100, 10, 50, 10, 2);
+        Recipe coffeeWithMilk = new Recipe(530, 310, 935, 75, 10, 50, 0, 0);
+        Recipe hotChocolate = new Recipe(600, 400, 910, 75, 0, 50, 50, 0);
+
+        recipes.add(expressCoffee);
+        recipes.add(cappuccino);
+        recipes.add(coffeeWithMilk);
+        recipes.add(hotChocolate);
+    }
+
+    /**
+     * Method to load compartments in
+     * coffee machine create.
+     */
+    private void loadCompartments() {
+        cupsCompartment.fill("smallCup", 100);
+        cupsCompartment.fill("mediumCup", 100);
+        cupsCompartment.fill("bigCup", 100);
+
+        coinsCompartment.fill("fiveCents", 0);
+        coinsCompartment.fill("tenCents", 0);
+        coinsCompartment.fill("twentyFiveCents", 0);
+        coinsCompartment.fill("fiftyCents", 0);
+        coinsCompartment.fill("oneBRL", 2);
+
+        ingredientsCompartment.fill("water", 30000);
+        ingredientsCompartment.fill("coffee", 3000);
+        ingredientsCompartment.fill("milk", 15000);
+        ingredientsCompartment.fill("cinnamon", 600);
+        ingredientsCompartment.fill("chocolate", 15000);
+        ingredientsCompartment.fill("sugar", 3600);
+    }
+
+    /**
+     * Method to sum coins value
+     *
+     * @param coins array with coins
+     * @return return coins sum
+     */
+    private Integer getSumCoins(ArrayList<Integer> coins) {
+        int sumCoins = 0;
+        for (int coin : coins) {
+            sumCoins += coin;
+        }
+        return sumCoins;
+    }
+
+    /**
+     * Method to validate amount price
+     *
+     * @param price BRL amount price
+     * @return true if is an valid price and false if not
+     */
+    private Boolean validatePrice(double price) {
+        int formattedPrice = this.formatPrice(price);
+        return formattedPrice % 5 == 0;
+    }
+
+    /**
+     * Method to made an rollback if in change coin process we
+     * not found more coins.
+     * <p>
+     * This method fill coins again.
+     *
+     * @param coins to insert again in coins compartment
+     */
+    private void rollbackCoins(ArrayList<Integer> coins) {
+        for (int coin : coins) {
+            coinsCompartment.fill(this.getTypeByValue(coin), 1);
+        }
     }
 }
