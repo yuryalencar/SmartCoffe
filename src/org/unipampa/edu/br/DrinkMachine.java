@@ -1,5 +1,6 @@
 package org.unipampa.edu.br;
 
+import java.rmi.server.ExportException;
 import java.util.ArrayList;
 
 public class DrinkMachine {
@@ -97,14 +98,14 @@ public class DrinkMachine {
     /**
      * Method to make an recipe by your respective type
      *
-     * @param type key of the recipe mapped
+     * @param type       key of the recipe mapped
      * @param recipeSize size of recipe to make, 1 to P, 2 to M, 3 to G
-     * @param sugarSize size of sugar 1 to P, 2 to M, 3 to G and any other size to S
+     * @param sugarSize  size of sugar 1 to P, 2 to M, 3 to G and any other size to S
      * @return true if make recipe, and false if not.
      */
     public Boolean makeRecipeByType(String type, int recipeSize, int sugarSize) {
         Recipe recipe = this.getRecipeByKey(type);
-        if(!this.canMakeRecipe(recipe, recipeSize, sugarSize, this.getCupTypeByRecipeSize(recipeSize)))
+        if (!this.canMakeRecipe(recipe, recipeSize, sugarSize, this.getCupTypeByRecipeSize(recipeSize)))
             return false;
 
         ingredientsCompartment.take("water", recipe.getWater(recipeSize));
@@ -114,12 +115,137 @@ public class DrinkMachine {
         ingredientsCompartment.take("chocolate", recipe.getChocolate(recipeSize));
         ingredientsCompartment.take("sugar", this.getSugarBySize(sugarSize));
         cupsCompartment.take(this.getCupTypeByRecipeSize(recipeSize), 1);
-        
+
+        this.verifyIngredients();
+        this.verifyCups();
+
         return true;
     }
 
-    public String getCupTypeByRecipeSize(int size) {
-        switch (size){
+    /**
+     * Method to verify ingredients and send email
+     * to technician if not contains min value
+     */
+    private void verifyIngredients() {
+        int amountWater = ingredientsCompartment.verifyAmount("water");
+        int amountCoffee = ingredientsCompartment.verifyAmount("coffee");
+        int amountCinnamon = ingredientsCompartment.verifyAmount("cinnamon");
+        int amountChocolate = ingredientsCompartment.verifyAmount("chocolate");
+        int amountMilk = ingredientsCompartment.verifyAmount("milk");
+        int amountSugar = ingredientsCompartment.verifyAmount("sugar");
+
+        if (amountChocolate == 0 || amountSugar == 0 || amountCinnamon == 0 || amountCoffee == 0 || amountMilk == 0 || amountWater == 0) {
+            try {
+                this.emailCentral.sendEmail("Um ou mais ingredientes acabaram.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+
+        if (!verifyBigRecipe(this.getRecipeByKey("cappuccino"), 10)) {
+            try {
+                this.emailCentral.sendEmail("Os ingredientes estão próximos de acabar.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+    }
+
+    /**
+     * Method to verify cups and send email
+     * to technician if not contains min value
+     */
+    private void verifyCups() {
+        int percentBig = this.cupsCompartment.verifyAmount("bigCup") * 100 / this.cupsCompartment.getMaxAmount();
+        int percentMedium = this.cupsCompartment.verifyAmount("mediumCup") * 100 / this.cupsCompartment.getMaxAmount();
+        int percentSmall = this.cupsCompartment.verifyAmount("smallCup") * 100 / this.cupsCompartment.getMaxAmount();
+
+        if (percentBig <= this.cupsCompartment.getMinToSenderEmail()) {
+            try {
+                this.emailCentral.sendEmail("Os copos grandes estão acabando.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+
+        if (percentMedium <= this.cupsCompartment.getMinToSenderEmail()) {
+            try {
+                this.emailCentral.sendEmail("Os copos médios estão acabando.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+
+        if (percentSmall <= this.cupsCompartment.getMinToSenderEmail()) {
+            try {
+                this.emailCentral.sendEmail("Os copos pequenos estão acabando.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+
+        if (percentSmall == 0 || percentMedium == 0  || percentBig == 0 ) {
+            try {
+                this.emailCentral.sendEmail("Um ou mais copos acabaram.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+    }
+
+    /**
+     * Method to verify coins and send email
+     * to technician if contains min or max value
+     */
+    private void verifyCoins() {
+        int amountFiveCents = coinsCompartment.verifyAmount("fiveCents");
+        int amountTenCents = coinsCompartment.verifyAmount("tenCents");
+        int amountTwentyFiveCents = coinsCompartment.verifyAmount("twentyFiveCents");
+        int amountFiftyCents = coinsCompartment.verifyAmount("fiftyCents");
+        int amountOneBRL = coinsCompartment.verifyAmount("oneBRL");
+
+        int percentFiveCents = amountFiveCents * 100 / coinsCompartment.getMaxAmount();
+        int percentTenCents = amountTenCents * 100 / coinsCompartment.getMaxAmount();
+        int percentTwentyFiveCents = amountTwentyFiveCents * 100 / coinsCompartment.getMaxAmount();
+        int percentFiftyCents = amountFiftyCents * 100 / coinsCompartment.getMaxAmount();
+        int percentOneBRL = amountOneBRL * 100 / coinsCompartment.getMaxAmount();
+
+        int minToSenderEmail = coinsCompartment.getMinToSenderEmail();
+        int maxToSenderEmail = coinsCompartment.getMaxToSenderEmail();
+
+        if (amountFiveCents == 0 || amountTenCents == 0  || amountTwentyFiveCents == 0 || amountFiftyCents == 0 || amountOneBRL == 0) {
+            try {
+                this.emailCentral.sendEmail("Um ou mais moedas acabaram.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+
+        if (percentFiveCents <= minToSenderEmail || percentTenCents <= minToSenderEmail || percentTwentyFiveCents <=  minToSenderEmail || percentFiftyCents <= minToSenderEmail || percentOneBRL <=  minToSenderEmail) {
+            try {
+                this.emailCentral.sendEmail("Um ou mais moedas próximas de acabar.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+
+        if (percentFiveCents >= maxToSenderEmail || percentTenCents >= maxToSenderEmail || percentTwentyFiveCents >=  maxToSenderEmail || percentFiftyCents >= maxToSenderEmail || percentOneBRL >=  maxToSenderEmail) {
+            try {
+                this.emailCentral.sendEmail("Um ou mais moedas próximas ou já encheram o seu compartimento.");
+            } catch (Exception exception) {
+                System.out.println("An error has occurred in sending email");
+            }
+        }
+    }
+
+    /**
+     * Method to get cup type by size
+     *
+     * @param size
+     * @return
+     */
+    private String getCupTypeByRecipeSize(int size) {
+        switch (size) {
             case 1:
                 return "smallCup";
             case 2:
@@ -134,9 +260,9 @@ public class DrinkMachine {
     /**
      * Method to verify if machine can make the recipe
      *
-     * @param recipe recipe to make
+     * @param recipe     recipe to make
      * @param recipeSize recipe size using 1 to small, 2 to medium and 3 to big
-     * @param sugarSize 1 to P, 2 to M, 3 to G, and any other value to S
+     * @param sugarSize  1 to P, 2 to M, 3 to G, and any other value to S
      * @return true if can make this recipe and false if not
      */
     public Boolean canMakeRecipe(Recipe recipe, int recipeSize, int sugarSize, String cupType) {
@@ -144,14 +270,14 @@ public class DrinkMachine {
         boolean hasSugar = ingredientsCompartment.verifyAmount("sugar") - getSugarBySize(sugarSize) > -1;
         boolean hasCup = cupsCompartment.verifyAmount(cupType) - 1 > -1;
 
-        if(recipeSize == 1)
+        if (recipeSize == 1)
             canMake = verifySmallRecipe(recipe);
 
-        if(recipeSize == 2)
+        if (recipeSize == 2)
             canMake = verifyMediumRecipe(recipe);
 
-        if(recipeSize == 3)
-            canMake = verifyBigRecipe(recipe);
+        if (recipeSize == 3)
+            canMake = verifyBigRecipe(recipe, 1);
 
         return canMake && hasSugar && hasCup;
     }
@@ -163,7 +289,7 @@ public class DrinkMachine {
      * @return recipe if keyword is mapped or null if not
      */
     public Recipe getRecipeByKey(String key) {
-        switch (key){
+        switch (key) {
             case "expressCoffee":
                 return new Recipe(200, 75, 535, 100, 10, 0, 0, 0);
             case "cappuccino":
@@ -180,28 +306,28 @@ public class DrinkMachine {
     /**
      * Method to verify ingredients to recipes
      *
-     * @param amountWater amount water in recipe
-     * @param amountCoffee amount coffee in recipe
-     * @param amountMilk amount milk in recipe
-     * @param amountCinnamon amount cinnamon in recipe
+     * @param amountWater     amount water in recipe
+     * @param amountCoffee    amount coffee in recipe
+     * @param amountMilk      amount milk in recipe
+     * @param amountCinnamon  amount cinnamon in recipe
      * @param amountChocolate amount chocolate in recipe
-     * @param amountRecipes amount recipes is used in validation
+     * @param amountRecipes   amount recipes is used in validation
      * @return true if has ingredients in compartment and false if not
      */
-    private Boolean verifyRecipe(int amountWater, int amountCoffee, int amountMilk, int amountCinnamon, int amountChocolate, int amountRecipes){
-        if(ingredientsCompartment.verifyAmount("water") - (amountWater * amountRecipes) < 0)
+    private Boolean verifyRecipe(int amountWater, int amountCoffee, int amountMilk, int amountCinnamon, int amountChocolate, int amountRecipes) {
+        if (ingredientsCompartment.verifyAmount("water") - (amountWater * amountRecipes) < 0)
             return false;
 
-        if(ingredientsCompartment.verifyAmount("coffee") - (amountCoffee * amountRecipes) < 0)
+        if (ingredientsCompartment.verifyAmount("coffee") - (amountCoffee * amountRecipes) < 0)
             return false;
 
-        if(ingredientsCompartment.verifyAmount("milk") - (amountMilk * amountRecipes) < 0)
+        if (ingredientsCompartment.verifyAmount("milk") - (amountMilk * amountRecipes) < 0)
             return false;
 
-        if(ingredientsCompartment.verifyAmount("cinnamon") - (amountCinnamon * amountRecipes) < 0)
+        if (ingredientsCompartment.verifyAmount("cinnamon") - (amountCinnamon * amountRecipes) < 0)
             return false;
 
-        if(ingredientsCompartment.verifyAmount("chocolate") - (amountChocolate * amountRecipes) < 0)
+        if (ingredientsCompartment.verifyAmount("chocolate") - (amountChocolate * amountRecipes) < 0)
             return false;
 
         return true;
@@ -245,14 +371,14 @@ public class DrinkMachine {
      * @param recipe recipe to verify if machine can make
      * @return true if can make, false if not
      */
-    private Boolean verifyBigRecipe(Recipe recipe) {
+    private Boolean verifyBigRecipe(Recipe recipe, int amountRecipes) {
         int amountWater = recipe.getBigWater();
         int amountCoffee = recipe.getBigCoffee();
         int amountMilk = recipe.getBigMilk();
         int amountCinnamon = recipe.getBigCinnamon();
         int amountChocolate = recipe.getBigChocolate();
 
-        return verifyRecipe(amountWater, amountCoffee, amountMilk, amountCinnamon, amountChocolate, 1);
+        return verifyRecipe(amountWater, amountCoffee, amountMilk, amountCinnamon, amountChocolate, amountRecipes);
     }
 
     /**
@@ -262,7 +388,7 @@ public class DrinkMachine {
      * @return return amount sugar in GR.
      */
     private Integer getSugarBySize(int size) {
-        switch (size){
+        switch (size) {
             case 1:
                 return 5;
             case 2:
@@ -297,6 +423,8 @@ public class DrinkMachine {
 
         if (changeCoins == null)
             return coins;
+
+        this.verifyCoins();
 
         return changeCoins;
     }
