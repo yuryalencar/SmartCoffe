@@ -67,21 +67,21 @@ public class CupsCompartment extends Compartment {
 
         switch (type) {
             case "smallCup":
-                if (this.amountSmallCup + amount > this.getMaxAmount()) {
+                if (this.amountSmallCup + amount <= this.getMaxAmount()) {
                     this.amountSmallCup += amount;
                     return true;
                 }
                 break;
 
             case "mediumCup":
-                if (this.amountMediumCup + amount > this.getMaxAmount()) {
+                if (this.amountMediumCup + amount <= this.getMaxAmount()) {
                     this.amountMediumCup += amount;
                     return true;
                 }
                 break;
 
             case "bigCup":
-                if (this.amountBigCup + amount > this.getMaxAmount()) {
+                if (this.amountBigCup + amount <= this.getMaxAmount()) {
                     this.amountBigCup += amount;
                     return true;
                 }

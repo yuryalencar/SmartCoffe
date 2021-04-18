@@ -104,7 +104,7 @@ public class DrinkMachine {
      */
     public Boolean makeRecipeByType(String type, int recipeSize, int sugarSize) {
         Recipe recipe = this.getRecipeByKey(type);
-        if(!this.canMakeRecipe(recipe, recipeSize, sugarSize))
+        if(!this.canMakeRecipe(recipe, recipeSize, sugarSize, this.getCupTypeByRecipeSize(recipeSize)))
             return false;
 
         ingredientsCompartment.take("water", recipe.getWater(recipeSize));
@@ -113,8 +113,22 @@ public class DrinkMachine {
         ingredientsCompartment.take("cinnamon", recipe.getCinnamon(recipeSize));
         ingredientsCompartment.take("chocolate", recipe.getChocolate(recipeSize));
         ingredientsCompartment.take("sugar", this.getSugarBySize(sugarSize));
-
+        cupsCompartment.take(this.getCupTypeByRecipeSize(recipeSize), 1);
+        
         return true;
+    }
+
+    public String getCupTypeByRecipeSize(int size) {
+        switch (size){
+            case 1:
+                return "smallCup";
+            case 2:
+                return "mediumCup";
+            case 3:
+                return "bigCup";
+        }
+
+        return null;
     }
 
     /**
@@ -125,9 +139,10 @@ public class DrinkMachine {
      * @param sugarSize 1 to P, 2 to M, 3 to G, and any other value to S
      * @return true if can make this recipe and false if not
      */
-    public Boolean canMakeRecipe(Recipe recipe, int recipeSize, int sugarSize) {
+    public Boolean canMakeRecipe(Recipe recipe, int recipeSize, int sugarSize, String cupType) {
         boolean canMake = false;
         boolean hasSugar = ingredientsCompartment.verifyAmount("sugar") - getSugarBySize(sugarSize) > -1;
+        boolean hasCup = cupsCompartment.verifyAmount(cupType) - 1 > -1;
 
         if(recipeSize == 1)
             canMake = verifySmallRecipe(recipe);
@@ -138,7 +153,7 @@ public class DrinkMachine {
         if(recipeSize == 3)
             canMake = verifyBigRecipe(recipe);
 
-        return canMake && hasSugar;
+        return canMake && hasSugar && hasCup;
     }
 
     /**
@@ -538,11 +553,11 @@ public class DrinkMachine {
         cupsCompartment.fill("mediumCup", 100);
         cupsCompartment.fill("bigCup", 100);
 
-        coinsCompartment.fill("fiveCents", 0);
-        coinsCompartment.fill("tenCents", 0);
-        coinsCompartment.fill("twentyFiveCents", 0);
-        coinsCompartment.fill("fiftyCents", 0);
-        coinsCompartment.fill("oneBRL", 2);
+        coinsCompartment.fill("fiveCents", 30);
+        coinsCompartment.fill("tenCents", 30);
+        coinsCompartment.fill("twentyFiveCents", 30);
+        coinsCompartment.fill("fiftyCents", 30);
+        coinsCompartment.fill("oneBRL", 30);
 
         ingredientsCompartment.fill("water", 30000);
         ingredientsCompartment.fill("coffee", 3000);

@@ -34,7 +34,8 @@ public class Main extends Application {
         // Drink Machine Sample :)
          DrinkMachine machine = new DrinkMachine();
 
-         System.out.println(machine.makeRecipeByType("cappuccino", 3, 2));
+        System.out.println(machine.makeRecipeByType("cappuccino", 3, 2));
+        System.out.println(machine.makeRecipeByType("cappuccino", 3, 2));
 
         //
         // ArrayList<Integer> coins= new ArrayList();
