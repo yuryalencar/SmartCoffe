@@ -109,6 +109,7 @@ public class CoffeeMachine implements Initializable {
     public void makeDrink() throws IOException, InterruptedException {
 
         boolean madeCoffee = false;
+        labelStatusCoffe.setText("Preparando o pedido..");
 
         ArrayList changeCoins = new ArrayList<Integer>();
 
@@ -139,12 +140,13 @@ public class CoffeeMachine implements Initializable {
 
             if(madeCoffee){
                 Thread.sleep(5000);
-                labelStatusCoffe.setText("Seu café está pronto!");
                 coins.clear();
                 if(!changeCoins.isEmpty() && changeCoins != null){
                     buttonWithDraw.setDisable(false);
-                    labelStatusCoffe.setText("Retire seu troco!");
+                    labelStatusCoffe.setText("Sua bebida esta pronta, retire seu troco!");
                     coins.addAll(changeCoins);
+                }else{
+                    labelStatusCoffe.setText("Sua bebida esta pronta!");
                 }
                 atualizaLabelCoins();
                 order.setCoffe(null);
@@ -158,6 +160,7 @@ public class CoffeeMachine implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("O valor inserido é menor que o valor da bebida");
             alert.showAndWait();
+            labelStatusCoffe.setText("Disponível");
         }
     }
 

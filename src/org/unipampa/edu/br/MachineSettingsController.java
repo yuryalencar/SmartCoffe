@@ -151,107 +151,164 @@ public class MachineSettingsController implements Initializable {
     @FXML
     public void addCoinFiveCents(){
 
-        if(drinkMachine.getCoinsCompartment().
-                fill("fiveCents", Integer.valueOf(textFieldCoinFiveCentsAdd.getText()))) {
+        if(!textFieldCoinFiveCentsAdd.getText().isEmpty() && textFieldCoinFiveCentsAdd.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    fill("fiveCents", Integer.valueOf(textFieldCoinFiveCentsAdd.getText()))) {
 
-            textFieldCoinFiveCentsAdd.setText("");
-            initDisplay();
+                textFieldCoinFiveCentsAdd.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void addCoinTenCents(){
 
-        if(drinkMachine.getCoinsCompartment().
-                fill("tenCents", Integer.valueOf(textFieldCoinTenCentsAdd.getText()))) {
+        if(!textFieldCoinTenCentsAdd.getText().isEmpty() && textFieldCoinTenCentsAdd.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    fill("tenCents", Integer.valueOf(textFieldCoinTenCentsAdd.getText()))) {
 
-            textFieldCoinTenCentsAdd.setText("");
-            initDisplay();
+                textFieldCoinTenCentsAdd.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida!");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
-
     }
 
     @FXML
     public void addCoinTwentyFiveCents(){
 
-        if(drinkMachine.getCoinsCompartment().
-                fill("twentyFiveCents", Integer.valueOf(textFieldCoinTwentyFiveCentsAdd.getText()))) {
+        if(!textFieldCoinTwentyFiveCentsAdd.getText().isEmpty() && textFieldCoinTwentyFiveCentsAdd.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    fill("twentyFiveCents", Integer.valueOf(textFieldCoinTwentyFiveCentsAdd.getText()))) {
 
-            textFieldCoinTwentyFiveCentsAdd.setText("");
-            initDisplay();
+                textFieldCoinTwentyFiveCentsAdd.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void addCoinFiftyCents(){
 
-        if(drinkMachine.getCoinsCompartment().
-                fill("fiftyCents", Integer.valueOf(textFieldCoinFiftyCentsAdd.getText()))) {
+        if(!textFieldCoinFiftyCentsAdd.getText().isEmpty() && textFieldCoinFiftyCentsAdd.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    fill("fiftyCents", Integer.valueOf(textFieldCoinFiftyCentsAdd.getText()))) {
 
-            textFieldCoinFiftyCentsAdd.setText("");
-            initDisplay();
+                textFieldCoinFiftyCentsAdd.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void addCoinOne(){
 
-        if(drinkMachine.getCoinsCompartment().
-                fill("oneBRL", Integer.valueOf(textFieldCoinOneAdd.getText()))){
+        if(!textFieldCoinOneAdd.getText().isEmpty() && textFieldCoinOneAdd.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    fill("oneBRL", Integer.valueOf(textFieldCoinOneAdd.getText()))){
 
-            textFieldCoinOneAdd.setText("");
-            initDisplay();
-        } else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Compartimento de Moeda");
-            alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
-            alert.showAndWait();
-        }
-    }
-
-    @FXML
-    public void getCoinFiveCents(){
-
-        if(drinkMachine.getCoinsCompartment().
-                take("fiveCents", Integer.valueOf(textFieldCoinFiveCentsGet.getText()))){
-
-            textFieldCoinFiveCentsGet.setText("");
-            initDisplay();
+                textFieldCoinOneAdd.setText("");
+                initDisplay();
+            } else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não possui a quantidade sollicitada!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
+            alert.showAndWait();
+        }
+
+    }
+
+    @FXML
+    public void getCoinFiveCents(){
+
+        if(!textFieldCoinFiveCentsGet.getText().isEmpty() && textFieldCoinFiveCentsGet.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    take("fiveCents", Integer.valueOf(textFieldCoinFiveCentsGet.getText()))){
+
+                textFieldCoinFiveCentsGet.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não possui a quantidade sollicitada");
+                alert.showAndWait();
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Compartimento de Moeda");
+            alert.setHeaderText(null);
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
     }
@@ -259,181 +316,273 @@ public class MachineSettingsController implements Initializable {
     @FXML
     public void getCoinTenCents(){
 
-        if(drinkMachine.getCoinsCompartment().
-                take("tenCents", Integer.valueOf(textFieldCoinTenCentsGet.getText()))){
+        if(!textFieldCoinTenCentsGet.getText().isEmpty() && textFieldCoinTenCentsGet.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    take("tenCents", Integer.valueOf(textFieldCoinTenCentsGet.getText()))){
 
-            textFieldCoinTenCentsGet.setText("");
-            initDisplay();
+                textFieldCoinTenCentsGet.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não possui a quantidade sollicitada");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não possui a quantidade sollicitada!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void getCoinTwentyFiveCents(){
 
-        if(drinkMachine.getCoinsCompartment().
-                take("twentyFiveCents", Integer.valueOf(textFieldCoinTwentyFiveCentsGet.getText()))){
+        if(!textFieldCoinTwentyFiveCentsGet.getText().isEmpty() && textFieldCoinTwentyFiveCentsGet.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    take("twentyFiveCents", Integer.valueOf(textFieldCoinTwentyFiveCentsGet.getText()))){
 
-            textFieldCoinTwentyFiveCentsGet.setText("");
-            initDisplay();
+                textFieldCoinTwentyFiveCentsGet.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não possui a quantidade sollicitada");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não possui a quantidade sollicitada!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void getCoinFiftyCents(){
 
-        if(drinkMachine.getCoinsCompartment().
-                take("fiftyCents", Integer.valueOf(textFieldCoinFiftyCentsGet.getText()))){
+        if(!textFieldCoinFiftyCentsGet.getText().isEmpty() && textFieldCoinFiftyCentsGet.getText() != null){
+            if(drinkMachine.getCoinsCompartment().
+                    take("fiftyCents", Integer.valueOf(textFieldCoinFiftyCentsGet.getText()))){
 
-            textFieldCoinFiftyCentsGet.setText("");
-            initDisplay();
+                textFieldCoinFiftyCentsGet.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não possui a quantidade sollicitada");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não possui a quantidade sollicitada!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void getCoinOne(){
 
-        if(drinkMachine.getCoinsCompartment().
-                take("oneBRL", Integer.valueOf(textFieldCoinOneGet.getText()))){
+        if(!textFieldCoinOneGet.getText().isEmpty() && textFieldCoinOneGet.getText() != null){
+            if(!drinkMachine.getCoinsCompartment().
+                    take("oneBRL", Integer.valueOf(textFieldCoinOneGet.getText()))){
 
-            textFieldCoinOneGet.setText("");
-            initDisplay();
+                textFieldCoinOneGet.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Moeda");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não possui a quantidade sollicitada");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Moeda");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não possui a quantidade sollicitada!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void addCupP(){
 
-        if(drinkMachine.getCupsCompartment().
-                fill("smallCup", Integer.valueOf(textFieldCupP.getText()))){
+        if(!textFieldCupP.getText().isEmpty() && textFieldCupP.getText() != null){
+            if(drinkMachine.getCupsCompartment().
+                    fill("smallCup", Integer.valueOf(textFieldCupP.getText()))){
 
-            textFieldCupP.setText("");
-            initDisplay();
+                textFieldCupP.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Copos");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Copos");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void addCupM(){
 
-        if(drinkMachine.getCupsCompartment().
-                fill("mediumCup", Integer.valueOf(textFieldCupM.getText()))){
+        if(!textFieldCupM.getText().isEmpty() && textFieldCupM.getText() != null){
+            if(drinkMachine.getCupsCompartment().
+                    fill("mediumCup", Integer.valueOf(textFieldCupM.getText()))){
 
-            textFieldCupM.setText("");
-            initDisplay();
+                textFieldCupM.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Copos");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Copos");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
-
     }
 
     @FXML
     public void addCupG(){
 
-        if(drinkMachine.getCupsCompartment().
-                fill("bigCup", Integer.valueOf(textFieldCupG.getText()))){
+        if(!textFieldCupG.getText().isEmpty() && textFieldCupG.getText() != null){
+            if(drinkMachine.getCupsCompartment().
+                    fill("bigCup", Integer.valueOf(textFieldCupG.getText()))){
 
-            textFieldCupG.setText("");
-            initDisplay();
-        }
-        else{
+                textFieldCupG.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Copos");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
+        } else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Copos");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void addWater(){
 
-        if(drinkMachine.getIngredientsCompartment().
-                fill("water", Integer.valueOf(textFieldWater.getText()))){
+        if(!textFieldWater.getText().isEmpty() && textFieldWater.getText() != null){
+            if(drinkMachine.getIngredientsCompartment().
+                    fill("water", Integer.valueOf(textFieldWater.getText()))){
 
-            textFieldWater.setText("");
-            initDisplay();
-        }
-        else{
+                textFieldWater.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Ingredientes");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
+        } else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Ingredientes");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
+
     }
 
     @FXML
     public void addCoffee(){
 
-        if(drinkMachine.getIngredientsCompartment().
-                fill("coffee", Integer.valueOf(textFieldCoffee.getText()))){
+        if(!textFieldCoffee.getText().isEmpty() && textFieldCoffee.getText() != null){
+            if(drinkMachine.getIngredientsCompartment().
+                    fill("coffee", Integer.valueOf(textFieldCoffee.getText()))){
 
-            textFieldCoffee.setText("");
-            initDisplay();
-        }
-        else{
+                textFieldCoffee.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Ingredientes");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
+        } else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Ingredientes");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
-
     }
 
     @FXML
     public void addMilk(){
 
-        if(drinkMachine.getIngredientsCompartment().
-                fill("milk", Integer.valueOf(textFieldMilk.getText()))){
+        if(!textFieldMilk.getText().isEmpty() && textFieldMilk.getText() != null){
+            if(drinkMachine.getIngredientsCompartment().
+                    fill("milk", Integer.valueOf(textFieldMilk.getText()))){
 
-            textFieldMilk.setText("");
-            initDisplay();
+                textFieldMilk.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Ingredientes");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Ingredientes");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
     }
@@ -441,17 +590,26 @@ public class MachineSettingsController implements Initializable {
     @FXML
     public void addCinnamon(){
 
-        if(drinkMachine.getIngredientsCompartment().
-                fill("cinnamon", Integer.valueOf(textFieldCinnamon.getText()))){
+        if(!textFieldCinnamon.getText().isEmpty() && textFieldCinnamon.getText() != null){
+            if(drinkMachine.getIngredientsCompartment().
+                    fill("cinnamon", Integer.valueOf(textFieldCinnamon.getText()))){
 
-            textFieldCinnamon.setText("");
-            initDisplay();
+                textFieldCinnamon.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Ingredientes");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Ingredientes");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
     }
@@ -459,17 +617,26 @@ public class MachineSettingsController implements Initializable {
     @FXML
     public void addChocolate(){
 
-        if(drinkMachine.getIngredientsCompartment().
-                fill("chocolate", Integer.valueOf(textFieldChocolate.getText()))){
+        if(!textFieldChocolate.getText().isEmpty() && textFieldChocolate.getText() != null){
+            if(drinkMachine.getIngredientsCompartment().
+                    fill("chocolate", Integer.valueOf(textFieldChocolate.getText()))){
 
-            textFieldChocolate.setText("");
-            initDisplay();
+                textFieldChocolate.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Ingredientes");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Ingredientes");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
     }
@@ -477,17 +644,26 @@ public class MachineSettingsController implements Initializable {
     @FXML
     public void addSugar(){
 
-        if(drinkMachine.getIngredientsCompartment().
-                fill("sugar", Integer.valueOf(textFieldSugar.getText()))){
+        if(!textFieldSugar.getText().isEmpty() && textFieldSugar.getText() != null){
+            if(drinkMachine.getIngredientsCompartment().
+                    fill("sugar", Integer.valueOf(textFieldSugar.getText()))){
 
-            textFieldSugar.setText("");
-            initDisplay();
+                textFieldSugar.setText("");
+                initDisplay();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Compartimento de Ingredientes");
+                alert.setHeaderText(null);
+                alert.setContentText("O compartimento não suporta a quantidade inserida");
+                alert.showAndWait();
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Compartimento de Ingredientes");
             alert.setHeaderText(null);
-            alert.setContentText("O compartimento não suporta a quantidade inserida!");
+            alert.setContentText("Preencha o campo com a quantidade desejada");
             alert.showAndWait();
         }
     }
