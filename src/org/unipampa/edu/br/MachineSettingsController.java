@@ -401,7 +401,7 @@ public class MachineSettingsController implements Initializable {
     public void getCoinOne(){
 
         if(!textFieldCoinOneGet.getText().isEmpty() && textFieldCoinOneGet.getText() != null){
-            if(!drinkMachine.getCoinsCompartment().
+            if(drinkMachine.getCoinsCompartment().
                     take("oneBRL", Integer.valueOf(textFieldCoinOneGet.getText()))){
 
                 textFieldCoinOneGet.setText("");
