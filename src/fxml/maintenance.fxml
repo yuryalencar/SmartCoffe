@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="598.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unipampa.edu.br.CoffeMachine">
+<AnchorPane prefHeight="598.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unipampa.edu.br.MachineSettingsController">
    <children>
       <VBox prefHeight="598.0" prefWidth="534.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -54,7 +54,7 @@
                                     <Insets bottom="5.0" left="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="26.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldWater" alignment="CENTER" prefHeight="26.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -65,7 +65,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addWater" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -102,7 +102,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoffee" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -113,7 +113,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCoffee" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -150,7 +150,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldMilk" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -161,7 +161,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addMilk" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -198,7 +198,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCinnamon" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -209,7 +209,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCinnamon" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -246,7 +246,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldChocolate" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -257,7 +257,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addChocolate" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -294,7 +294,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldSugar" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -305,7 +305,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addSugar" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -343,7 +343,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="labelGlassP" alignment="CENTER" text="000">
+                              <Label fx:id="labelCupP" alignment="CENTER" text="000">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -354,7 +354,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="26.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCupP" alignment="CENTER" prefHeight="26.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -365,7 +365,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCupP" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -380,7 +380,7 @@
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="267.0">
                            <children>
-                              <Label fx:id="labelGlassM" text="M -">
+                              <Label text="M -">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -391,7 +391,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label alignment="CENTER" text="000">
+                              <Label fx:id="labelCupM" alignment="CENTER" text="000">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -402,7 +402,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="26.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCupM" alignment="CENTER" prefHeight="26.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -413,7 +413,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCupM" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -428,7 +428,7 @@
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="267.0">
                            <children>
-                              <Label fx:id="labelGlassG" text="G -">
+                              <Label text="G -">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -439,7 +439,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label alignment="CENTER" text="000">
+                              <Label fx:id="labelCupG" alignment="CENTER" text="000">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -450,7 +450,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="26.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCupG" alignment="CENTER" prefHeight="26.0" prefWidth="72.0">
                                  <HBox.margin>
                                     <Insets left="5.0" top="6.0" />
                                  </HBox.margin>
@@ -461,7 +461,7 @@
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCupG" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <HBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
@@ -503,7 +503,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="labelCoinFiveCents" alignment="CENTER" text="000">
+                              <Label fx:id="labelCoinFiveCentsAdd" alignment="CENTER" text="000">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -514,7 +514,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinFiveCentsAdd" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -525,7 +525,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCoinFiveCents" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -551,7 +551,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="labelCoinTenCents" alignment="CENTER" text="000">
+                              <Label fx:id="labelCoinTenCentsAdd" alignment="CENTER" text="000">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -562,7 +562,7 @@
                                     <Insets left="8.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinTenCentsAdd" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -573,7 +573,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCoinTenCents" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -599,7 +599,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="labelCoinTwentyFiveCents" alignment="CENTER" text="000">
+                              <Label fx:id="labelCoinTwentyFiveCentsAdd" alignment="CENTER" text="000">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -610,7 +610,7 @@
                                     <Insets left="6.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinTwentyFiveCentsAdd" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -621,7 +621,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCoinTwentyFiveCents" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -647,7 +647,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="labelCoinFiftyCents" alignment="CENTER" text="000">
+                              <Label fx:id="labelCoinFiftyCentsAdd" alignment="CENTER" text="000">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -658,7 +658,7 @@
                                     <Insets left="6.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinFiftyCentsAdd" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -669,7 +669,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCoinFiftyCents" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -695,7 +695,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="labelCoinOne" alignment="CENTER" text="000">
+                              <Label fx:id="labelCoinOneAdd" alignment="CENTER" text="000">
                                  <font>
                                     <Font name="Comic Sans MS" size="14.0" />
                                  </font>
@@ -706,7 +706,7 @@
                                     <Insets left="8.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinOneAdd" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -717,7 +717,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Add">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addCoinOne" prefHeight="27.0" prefWidth="60.0" text="Add">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -766,7 +766,7 @@
                                     <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinFiveCentsGet" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -777,7 +777,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Get">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#getCoinFiveCents" prefHeight="27.0" prefWidth="60.0" text="Get">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -814,7 +814,7 @@
                                     <Insets left="8.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinTenCentsGet" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -825,7 +825,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Get">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#getCoinTenCents" prefHeight="27.0" prefWidth="60.0" text="Get">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -862,7 +862,7 @@
                                     <Insets left="6.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinTwentyFiveCentsGet" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -873,7 +873,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Get">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#getCoinTwentyFiveCents" prefHeight="27.0" prefWidth="60.0" text="Get">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -910,7 +910,7 @@
                                     <Insets left="6.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinFiftyCentsGet" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -921,7 +921,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Get">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#getCoinFiftyCents" prefHeight="27.0" prefWidth="60.0" text="Get">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>
@@ -958,7 +958,7 @@
                                     <Insets left="8.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
+                              <TextField fx:id="textFieldCoinOneGet" alignment="CENTER" prefHeight="23.0" prefWidth="72.0">
                                  <padding>
                                     <Insets bottom="5.0" top="5.0" />
                                  </padding>
@@ -969,7 +969,7 @@
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Get">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#getCoinOne" prefHeight="27.0" prefWidth="60.0" text="Get">
                                  <padding>
                                     <Insets bottom="5.0" top="4.0" />
                                  </padding>

@@ -16,18 +16,18 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
-//        Scene scene = new Scene(root);
-//        stage.setTitle("SmartCoffe");
-//        stage.setResizable(false);
-//        stage.setScene(scene);
-//        stage.show();
-//        setStage(stage);
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("SmartCoffe");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+        setStage(stage);
     }
 
     public static void main(String[] args) {
 
-        // launch(args);
+        launch(args);
 
         System.out.println("SmartCoffee - An intelligent coffee machine");
 

@@ -28,6 +28,7 @@ public class CoinsCompartment extends Compartment {
     @Override
     public boolean take(String type, int amount) {
 
+        System.out.println("Entrou");
         if (amount < 0)
             return false;
 

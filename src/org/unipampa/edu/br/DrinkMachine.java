@@ -2,6 +2,8 @@ package org.unipampa.edu.br;
 
 import java.rmi.server.ExportException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DrinkMachine {
     private ArrayList<Recipe> recipes;
@@ -9,6 +11,7 @@ public class DrinkMachine {
     private Compartment coinsCompartment;
     private Compartment ingredientsCompartment;
     private EmailCentral emailCentral;
+    private static DrinkMachine instance = null;
 
     public DrinkMachine() {
         recipes = new ArrayList();
@@ -19,6 +22,18 @@ public class DrinkMachine {
 
         this.loadRecipes();
         this.loadCompartments();
+    }
+
+    /**
+     * singleton;
+     *
+     * @return
+     */
+    public static DrinkMachine getInstance() {
+        if (instance == null) {
+            instance = new DrinkMachine();
+        }
+        return instance;
     }
 
     /**
@@ -118,7 +133,6 @@ public class DrinkMachine {
 
         this.verifyIngredients();
         this.verifyCups();
-
         return true;
     }
 
@@ -513,7 +527,7 @@ public class DrinkMachine {
         if (!this.canPay(coins, price))
             return -1;
 
-        return this.getSumCoins(coins) - this.formatPrice(price);
+        return (int) (this.getSumCoins(coins) - price);
     }
 
     /**
@@ -524,11 +538,12 @@ public class DrinkMachine {
      * @return true if money can pay drink, and false if not
      */
     public Boolean canPay(ArrayList<Integer> coins, double price) {
+
         if (!this.validateCoins(coins) || !this.validatePrice(price) || !this.hasSpaceInCompartment(coins))
             return false;
 
-        int change = this.getSumCoins(coins) - this.formatPrice(price);
-        return change > 0;
+        int change = (int) (this.getSumCoins(coins) - price);
+        return change >= 0;
     }
 
     /**
@@ -733,4 +748,17 @@ public class DrinkMachine {
             coinsCompartment.fill(this.getTypeByValue(coin), 1);
         }
     }
+
+    public Compartment getCupsCompartment() {
+        return cupsCompartment;
+    }
+
+    public Compartment getCoinsCompartment() {
+        return coinsCompartment;
+    }
+
+    public Compartment getIngredientsCompartment() {
+        return ingredientsCompartment;
+    }
 }
+
