@@ -252,6 +252,28 @@ public class DrinkMachine {
         }
     }
 
+    public boolean hasChangeCoins() {
+
+        int amountFiveCents = coinsCompartment.verifyAmount("fiveCents");
+        int amountTenCents = coinsCompartment.verifyAmount("tenCents");
+        int amountTwentyFiveCents = coinsCompartment.verifyAmount("twentyFiveCents");
+        int amountFiftyCents = coinsCompartment.verifyAmount("fiftyCents");
+        int amountOneBRL = coinsCompartment.verifyAmount("oneBRL");
+
+        int percentFiveCents = amountFiveCents * 100 / coinsCompartment.getMaxAmount();
+        int percentTenCents = amountTenCents * 100 / coinsCompartment.getMaxAmount();
+        int percentTwentyFiveCents = amountTwentyFiveCents * 100 / coinsCompartment.getMaxAmount();
+        int percentFiftyCents = amountFiftyCents * 100 / coinsCompartment.getMaxAmount();
+        int percentOneBRL = amountOneBRL * 100 / coinsCompartment.getMaxAmount();
+
+        int minCoin = coinsCompartment.getMinToSenderEmail();
+
+        if (percentFiveCents <= minCoin || percentTenCents <= minCoin || percentTwentyFiveCents <=  minCoin || percentFiftyCents <= minCoin || percentOneBRL <=  minCoin) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Method to get cup type by size
      *

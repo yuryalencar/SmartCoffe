@@ -1,5 +1,6 @@
 package org.unipampa.edu.br;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -26,10 +28,16 @@ public class CoffeeMachine implements Initializable {
     private Label labelCashBack;
 
     @FXML
+    private Label labelChangeCoin;
+
+    @FXML
     private ComboBox<String> comboCoins;
 
     @FXML
     private Button buttonWithDraw;
+
+    @FXML
+    private Button buttonInit;
 
     @FXML
     private Button buttonCoffeeBig;
@@ -52,6 +60,8 @@ public class CoffeeMachine implements Initializable {
     private Order order;
 
     public ArrayList<Integer> coins;
+
+    FeedBackController controller;
 
     public CoffeeMachine() {
     }
@@ -95,71 +105,66 @@ public class CoffeeMachine implements Initializable {
         atualizaLabelCoins();
         buttonWithDraw.setDisable(true);
         labelStatusCoffe.setText("Disponível");
+        labelChangeCoin.setText("Troco");
     }
 
     @FXML
     public void insertCoin(){
 
-        addCoin(comboCoins.getValue());
-        comboCoins.getSelectionModel().clearSelection();
-        atualizaLabelCoins();
+        if(comboCoins.getValue() != null){
+            addCoin(comboCoins.getValue());
+            comboCoins.getSelectionModel().clearSelection();
+            atualizaLabelCoins();
+        }
     }
 
     @FXML
-    public void makeDrink() throws IOException, InterruptedException {
+    public void onClickInit() {
+
+        if(order.getCoffe() != null && order.getSugar() != null){
+            labelStatusCoffe.setText("Sua bebida está sendo preparada");
+            buttonInit.setDisable(true);
+        }
+    }
+
+    @FXML
+    public void makeDrink() throws InterruptedException {
 
         boolean madeCoffee = false;
-        labelStatusCoffe.setText("Preparando o pedido..");
-
         ArrayList changeCoins = new ArrayList<Integer>();
+        String titleError = "";
+        String msgError = "";
 
-        if(drinkMachine.canPay(coins, order.getCoffe().price)){
-
-
-            //FXMLLoader loader = new FXMLLoader();
-            //loader.setLocation(FeedBackController.class
-              //  .getResource("/fxml/feedbackcoffeemachine.fxml"));
-
-            //AnchorPane page = (AnchorPane) loader.load();
-            //Stage stage = new Stage();
-            //FeedBackController controller = loader.getController();
-            //controller.setDialogStage(stage);
-            // Criando um Estágio de Diálogo (Stage Dialog)
-
-            //stage.setTitle("SmartCoffe - Configurações da Cafeteira");
-            //stage.setResizable(false);
-            //Scene scene = new Scene(page);
-            //stage.setScene(scene);
-            //stage.show();
-
-
-            madeCoffee = drinkMachine.makeRecipeByType(order.getCoffe().drink, order.getCoffe().size,
-                    EnumInterfaceCoffe.getSizeSugarInt(order.getSugar()));
-
-            changeCoins = drinkMachine.pay(coins, order.getCoffe().price);
-
-            if(madeCoffee){
-                Thread.sleep(5000);
-                coins.clear();
-                if(!changeCoins.isEmpty() && changeCoins != null){
-                    buttonWithDraw.setDisable(false);
-                    labelStatusCoffe.setText("Sua bebida esta pronta, retire seu troco!");
-                    coins.addAll(changeCoins);
-                }else{
-                    labelStatusCoffe.setText("Sua bebida esta pronta!");
+        if(order.getCoffe() != null && order.getSugar() != null){
+            if(drinkMachine.canPay(coins, order.getCoffe().price)){
+                if(drinkMachine.hasChangeCoins()){
+                    makesDrink();
                 }
-                atualizaLabelCoins();
-                order.setCoffe(null);
-                order.setSugar(null);
-                //controller.getDialogStage().close();
+                else{
+                    titleError = "Troco";
+                    msgError = "A máquina está com nivel baixo de moedas, possivelmente afete no troco. Deseja prosseguir?";
+                    if(confirmDrink(titleError, msgError)){
+                        makesDrink();
+                    } else{
+                        labelStatusCoffe.setText("Pedido cancelado");
+                        buttonInit.setDisable(false);
+                        cancelDrink();
+
+                    }
+                }
             }
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Pagamento");
-            alert.setHeaderText(null);
-            alert.setContentText("O valor inserido é menor que o valor da bebida");
-            alert.showAndWait();
+            else{
+                titleError = "Pagamento";
+                msgError = "O valor inserido é menor que o valor da bebida";
+                errorMessage(titleError, msgError);
+                buttonInit.setDisable(false);
+                labelStatusCoffe.setText("Disponível");
+            }
+        } else{
+            titleError = "Pedido";
+            msgError = "Selecione uma bebida e um nivel de açucar";
+            errorMessage(titleError, msgError);
+            buttonInit.setDisable(false);
             labelStatusCoffe.setText("Disponível");
         }
     }
@@ -177,8 +182,6 @@ public class CoffeeMachine implements Initializable {
     @FXML
     public void expressCoffeeP(){
         order.setCoffe(EnumInterfaceCoffe.EXPRESS_COFFEE_P);
-        System.out.println("Expresso P " + order.getCoffe().drink);
-        System.out.println("Preço " + EnumInterfaceCoffe.getPrice(order.getCoffe().id));
         atualizaLabelStatus(order);
     }
 
@@ -292,6 +295,83 @@ public class CoffeeMachine implements Initializable {
         atualizaLabelStatus(order);
     }
 
+    private void makesDrink() throws InterruptedException {
+
+        boolean madeCoffee = false;
+        ArrayList changeCoins = new ArrayList<Integer>();
+        String titleError = "";
+        String msgError = "";
+
+        madeCoffee = drinkMachine.makeRecipeByType(order.getCoffe().drink, order.getCoffe().size,
+                EnumInterfaceCoffe.getSizeSugarInt(order.getSugar()));
+
+        changeCoins = drinkMachine.pay(coins, order.getCoffe().price);
+
+        if(madeCoffee) {
+            Thread.sleep(5000);
+            coins.clear();
+
+            if (!changeCoins.isEmpty() && changeCoins != null) {
+                buttonWithDraw.setDisable(false);
+                buttonInit.setDisable(false);
+                labelStatusCoffe.setText("Sua bebida está pronta, retire seu troco");
+                labelChangeCoin.setText(setChagenCoin(changeCoins));
+                coins.addAll(changeCoins);
+                //controller.getDialogStage().close();
+            } else {
+                buttonInit.setDisable(false);
+                labelStatusCoffe.setText("Sua bebida esta pronta");
+                //controller.getDialogStage().close();
+            }
+            atualizaLabelCoins();
+            order.setCoffe(null);
+            order.setSugar(null);
+        }
+
+    }
+
+    private boolean confirmDrink(String title, String msg){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void errorMessage(String title, String msg){
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+
+    private String setChagenCoin(ArrayList<Integer> listCoin){
+
+        String str = "";
+        String format;
+        double result = 0;
+        for(Integer item: listCoin){
+            if(str.isEmpty()){
+                result = (double) item/100;
+                format = String.format("%.2f", result);
+                str = String.format("Troco: R$ %s", format);
+            }else{
+                result = (double) item/100;
+                format = String.format("%.2f", result);
+                str += (String.format(", R$ %s", format));
+            }
+        }
+        return str;
+    }
+
     private void addCoin(String value){
 
         if(value.equalsIgnoreCase("R$ 1,00")){
@@ -350,6 +430,14 @@ public class CoffeeMachine implements Initializable {
         comboCoins.getItems().add("R$ 0,25");
         comboCoins.getItems().add("R$ 0,10");
         comboCoins.getItems().add("R$ 0,05");
+    }
+
+    public FeedBackController getController() {
+        return controller;
+    }
+
+    public void setController(FeedBackController controller) {
+        this.controller = controller;
     }
 
     public void setDialogStage(Stage dialogStage) {

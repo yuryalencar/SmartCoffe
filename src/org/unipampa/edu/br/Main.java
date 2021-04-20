@@ -29,24 +29,6 @@ public class Main extends Application {
 
         launch(args);
 
-        System.out.println("SmartCoffee - An intelligent coffee machine");
-
-        // Drink Machine Sample :)
-         DrinkMachine machine = new DrinkMachine();
-
-//        System.out.println(machine.makeRecipeByType("cappuccino", 3, 2));
-//        System.out.println(machine.makeRecipeByType("cappuccino", 2, 2));
-//        System.out.println(machine.makeRecipeByType("cappuccino", 1, 2));
-
-         ArrayList<Integer> coins= new ArrayList();
-         coins.add(10);
-         coins.add(10);
-         coins.add(25);
-         coins.add(50);
-         coins.add(50);
-         coins.add(100);
-
-         System.out.println(machine.pay(coins, 2));
     }
 
     public void setStage(Stage stage) {
